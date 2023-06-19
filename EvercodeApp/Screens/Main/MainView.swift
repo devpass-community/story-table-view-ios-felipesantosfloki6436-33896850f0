@@ -6,6 +6,8 @@ final class MainView: UIView {
        
         let view = UITableView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.delegate = self
+        view.dataSource = self
         return view
     }()
     
@@ -57,4 +59,20 @@ private extension MainView {
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+}
+
+extension MainView: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.selectionStyle = .default
+        let value = items[indexPath.row]
+        cell.textLabel?.text = value
+        return cell
+    }
+    
 }
